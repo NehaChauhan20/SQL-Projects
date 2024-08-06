@@ -1,12 +1,15 @@
+--Create a Database
 CREATE DATABASE Weather;
 USE Weather;
 
+--Create a table cities
 CREATE TABLE cities(
 city_id INT PRIMARY KEY,
 city_name VARCHAR(50),
 country VARCHAR(50)
 );
 
+-- Insert values in the table cities
 INSERT INTO cities(city_id,city_name,country) VALUES 
 (1 , 'New Delhi' , 'India'),
 (2 , 'Mumbai' , 'India'),
@@ -14,7 +17,7 @@ INSERT INTO cities(city_id,city_name,country) VALUES
 (4 , 'Chennai' , 'India'),
 (5 , 'Jaipur' , 'India');
 
-
+--Create a table weather_records
 CREATE TABLE weather_records(
 record_id INT PRIMARY KEY,
 city_id INT,
@@ -26,8 +29,7 @@ wind VARCHAR(10) ,
 FOREIGN KEY (city_id) REFERENCES cities(city_id)
 );
 
-drop table weather_records;
-
+-- Insert values in the table weather_records
 INSERT INTO weather_records(record_id,city_id,date,conditions,temperature,humidity,wind) VALUES
 (001 , 1 , str_to_date('13-07-2024' , '%d-%m-%Y') , 'Mist' , '31.4°C' , '92%' , '5.6km\h' ),
 (002 , 2 , str_to_date('10-07-2024' , '%d-%m-%Y') , 'Light rain' , '29°C' , '86%' , '13km\h'),
@@ -35,20 +37,22 @@ INSERT INTO weather_records(record_id,city_id,date,conditions,temperature,humidi
 (004 , 4 , str_to_date('11-07-2024' , '%d-%m-%Y') , 'Partly cloudy' , '31°C' , '70%' , '11km\h'),
 (005 , 5 , str_to_date('9-07-2024' , '%d-%m-%Y') , 'Cloudy' , '28°C' , '75%' , '8km\h' );
 
-
+--Select all values from both tables.
 SELECT * FROM cities;
 SELECT * FROM weather_records;
 
+--What are the weather records (date, temperature, humidity, wind, and conditions) for the city of Jaipur? 
 SELECT date , temperature, humidity, wind, conditions 
 FROM weather_records
 WHERE city_id = (SELECT city_id FROM cities WHERE city_name = 'Jaipur') ;
 
+--What is the average temperature for Hyderabad in July 2024? 
 SELECT AVG(temperature) AS avg_temperature
 FROM weather_records
 WHERE city_id = (SELECT city_id FROM cities WHERE city_name = 'Hyderabad') 
-  AND DATE_FORMAT(date, '%Y-%m') = '2024-07';
+AND DATE_FORMAT(date, '%Y-%m') = '2024-07';
   
-    
+--Which are the top 3 cities with the highest temperatures recorded in July 2024?
 SELECT c.city_name, wr.temperature
 FROM weather_records wr
 JOIN cities c ON wr.city_id = c.city_id

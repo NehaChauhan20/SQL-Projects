@@ -27,15 +27,15 @@ LIMIT 3;
 Description: Lists the top 3 cities with the highest temperatures recorded in July 2024.
 ```
 ## Contributing
-How to Contribute:
+### How to Contribute:
 1.Fork the repository and create a pull request with your changes.
 2.Ensure your changes are well-documented and tested.
 
 ## License
-License Information:
+### License Information:
 MIT License
 
 ## Contact
-Author:
+### Author:
 Neha Chauhan
 analysiswithneha@gmail.com
